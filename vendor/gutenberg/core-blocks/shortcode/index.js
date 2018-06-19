@@ -1,6 +1,7 @@
 /**
  * WordPress dependencies
  */
+import React from 'react';
 import { RawHTML } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { withInstanceId, Dashicon } from '@wordpress/components';

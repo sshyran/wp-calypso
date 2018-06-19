@@ -2,15 +2,12 @@
  * External dependencies
  */
 import { forEach } from 'lodash';
+import React, { Component, createRef } from 'react';
 
 /**
  * WordPress dependencies
  */
-import {
-	Component,
-	createRef,
-	createHigherOrderComponent,
-} from '@wordpress/element';
+import { createHigherOrderComponent } from '@wordpress/element';
 
 /**
  * Internal dependencies

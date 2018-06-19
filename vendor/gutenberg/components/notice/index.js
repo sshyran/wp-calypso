@@ -3,6 +3,7 @@
  */
 import { isString, noop } from 'lodash';
 import classnames from 'classnames';
+import React from 'react';
 
 /**
  * WordPress dependencies

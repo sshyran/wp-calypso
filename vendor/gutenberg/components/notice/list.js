@@ -2,6 +2,7 @@
  * External dependencies
  */
 import { noop, omit } from 'lodash';
+import React from 'react';
 
 /**
  * Internal dependencies
