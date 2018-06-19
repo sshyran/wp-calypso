@@ -431,4 +431,11 @@ sections.push( {
 	isomorphic: false,
 } );
 
+sections.push( {
+	name: 'gutenberg',
+	paths: [ '/gutenberg' ],
+	module: 'gutenberg',
+	secondary: false,
+} );
+
 module.exports = sections;
