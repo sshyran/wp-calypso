@@ -3,10 +3,10 @@ export default {
 	multiyearSubscriptions: {
 		datestamp: '20180601',
 		variations: {
-			show: 50,
-			hide: 50,
+			show: 100,
+			hide: 0,
 		},
-		defaultVariation: 'hide',
+		defaultVariation: 'show',
 		allowExistingUsers: true,
 		localeTargets: 'any',
 	},
