@@ -20,7 +20,7 @@
 	max-width: 700px;
 	margin: 0 auto;
 
-	& > .mce-container-body {
+	& .mce-container.mce-top-part > .mce-container-body {
 		&:after {
 			margin-top: 1px;
 			transition: width 0.2s;
@@ -42,11 +42,14 @@
 		}
 	}
 
-	&.is-pinned > .mce-container-body {
+	&.is-pinned .mce-container.mce-top-part > .mce-container-body {
 		& > .mce-toolbar-grp,
 		&:after {
 			position: fixed;
 				top: 47px;
+		}
+
+		& > .mce-toolbar-grp {
 			border-top-width: 0;
 			border-left-width: 0;
 			border-right-width: 0;
@@ -58,6 +61,12 @@
 				}
 				margin: 0;
 			}
+		}
+
+		&:after {
+			// align the content-fade to the right edge. As the pinned toolbar doesn't have
+			// a right border, indenting the fade by 1px is not needed.
+			right: 0;
 		}
 
 		& > .mce-toolbar-grp > .mce-container-body > .mce-container {
