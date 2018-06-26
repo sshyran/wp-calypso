@@ -8,13 +8,14 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import { localize } from 'i18n-calypso';
 import { connect } from 'react-redux';
-import { includes, uniq } from 'lodash';
+import { get, includes, uniq } from 'lodash';
 
 /**
  * Internal dependencies
  */
 import PluginSiteList from 'my-sites/plugins/plugin-site-list';
 import HeaderCake from 'components/header-cake';
+import Card from 'components/card';
 import PluginMeta from 'my-sites/plugins/plugin-meta';
 import PluginsStore from 'lib/plugins/store';
 import PluginsLog from 'lib/plugins/log-store';
@@ -132,6 +133,10 @@ const SinglePlugin = createReactClass( {
 	},
 
 	displayHeader() {
+		if ( this.isInstalledOnSite() ) {
+			return <Card className="plugin__installed-header" />;
+		}
+
 		const recordEvent = this.recordEvent.bind( this, 'Clicked Header Plugin Back Arrow' );
 		return (
 			<HeaderCake
@@ -182,6 +187,15 @@ const SinglePlugin = createReactClass( {
 		plugin = Object.assign( plugin, getPlugin( this.props.wporgPlugins, this.props.pluginSlug ) );
 
 		return plugin;
+	},
+
+	isInstalledOnSite() {
+		const { selectedSite } = this.props;
+		const slug = get( this.state, 'plugin.slug' );
+
+		return slug && ! this.isFetchingSites()
+			? !! PluginsStore.getSitePlugin( selectedSite, slug )
+			: null;
 	},
 
 	getPluginDoesNotExistView( selectedSite ) {
@@ -266,11 +280,7 @@ const SinglePlugin = createReactClass( {
 					{ this.displayHeader() }
 					<PluginMeta
 						isPlaceholder
-						isInstalledOnSite={
-							this.isFetchingSites()
-								? null
-								: !! PluginsStore.getSitePlugin( selectedSite, this.state.plugin.slug )
-						}
+						isInstalledOnSite={ this.isInstalledOnSite() }
 						plugin={ this.getPlugin() }
 						siteUrl={ this.props.siteUrl }
 						sites={ this.state.sites }
@@ -304,9 +314,7 @@ const SinglePlugin = createReactClass( {
 				<div className="plugin__page">
 					{ this.displayHeader() }
 					<PluginMeta
-						isInstalledOnSite={
-							!! PluginsStore.getSitePlugin( selectedSite, this.state.plugin.slug )
-						}
+						isInstalledOnSite={ this.isInstalledOnSite() }
 						plugin={ this.getPlugin() }
 						siteUrl={ 'no-real-url' }
 						sites={ [ selectedSite ] }
@@ -373,11 +381,7 @@ const SinglePlugin = createReactClass( {
 						siteUrl={ this.props.siteUrl }
 						sites={ this.state.sites }
 						selectedSite={ selectedSite }
-						isInstalledOnSite={
-							this.isFetchingSites()
-								? null
-								: !! PluginsStore.getSitePlugin( selectedSite, this.state.plugin.slug )
-						}
+						isInstalledOnSite={ this.isInstalledOnSite() }
 						isInstalling={ installing }
 						allowedActions={ allowedPluginActions }
 					/>
